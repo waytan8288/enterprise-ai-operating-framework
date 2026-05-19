@@ -6,7 +6,7 @@ ATRIUM is an enterprise AI operating framework built on [LangGraph](https://gith
 
 > The companies that win with AI will not be the ones with the most pilots. They will be the ones that turn AI into a governed, learning system that improves every time it operates.
 
-For the full framework specification, see [`ATRIUM_Framework.pdf`](ATRIUM_Framework.pdf).
+For the full framework specification, see [`ATRIUM_Framework_v1.pdf`](ATRIUM_Framework_v1.pdf).
 
 ## Architecture
 
