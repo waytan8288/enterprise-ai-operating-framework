@@ -1,0 +1,13 @@
+.env
+*.db
+data/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+evals/latest_results.json

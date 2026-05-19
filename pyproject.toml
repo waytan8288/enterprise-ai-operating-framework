@@ -1,0 +1,110 @@
+[build-system]
+requires = ["setuptools>=73.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enterprise-ai-operating-framework"
+version = "0.1.0"
+description = "Enterprise AI Operating Framework — multi-agent AI framework with 7 agents operating as a flywheel around an Enterprise Knowledge Graph"
+authors = [{ name = "Way Tan", email = "waytan@gmail.com" }]
+requires-python = ">=3.11,<4.0"
+dependencies = [
+    "langchain>=1.2.0",
+    "langchain-openai>=1.1.6",
+    "langchain-core>=1.2.5",
+    "langgraph>=1.0.6,<1.1.0",
+    "langgraph-prebuilt>=1.0.6",
+    "langgraph-supervisor>=0.0.31",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "pyjwt[crypto]>=2.10.1",
+    "httpx>=0.28.1",
+    "sqlalchemy>=2.0",
+]
+
+[tool.setuptools]
+packages = [
+    "orchestrator_agent",
+    "insight_agent",
+    "insight_agent.semantic_sql_agent",
+    "strategy_agent",
+    "act_agent",
+    "measure_agent",
+    "learn_agent",
+    "govern_agent",
+    "knowledge_graph",
+    "connectors",
+    "security",
+    "governance",
+    "evals",
+]
+
+[tool.setuptools.package-dir]
+orchestrator_agent = "agents/orchestrator_agent"
+insight_agent = "agents/insight_agent"
+"insight_agent.semantic_sql_agent" = "agents/insight_agent/semantic_sql_agent"
+strategy_agent = "agents/strategy_agent"
+act_agent = "agents/act_agent"
+measure_agent = "agents/measure_agent"
+learn_agent = "agents/learn_agent"
+govern_agent = "agents/govern_agent"
+knowledge_graph = "libs/knowledge_graph"
+connectors = "libs/connectors"
+security = "libs/security"
+governance = "libs/governance"
+evals = "evals"
+
+[dependency-groups]
+dev = [
+    "langgraph-cli[inmem]>=0.4.21",
+    "mypy>=1.19.0",
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.14.0",
+]
+mysql = [
+    "pymysql>=1.1.0",
+]
+snowflake = [
+    "snowflake-sqlalchemy>=1.6.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.mypy]
+files = ["*.py"]
+show_traceback = true
+pretty = true
+strict = false
+check_untyped_defs = true
+warn_unreachable = true
+python_version = "3.11"
+explicit_package_bases = true
+mypy_path = "agents:libs:."
+namespace_packages = true
+
+[tool.ty.environment]
+extra-paths = ["agents", "libs", "."]
+
+[tool.ruff]
+fix = true
+preview = true
+line-length = 88
+exclude = ["scripts/"]
+
+[tool.ruff.format]
+docstring-code-format = true
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint]
+select = [
+    "B", "E", "F", "I", "ISC", "UP", "SIM", "RUF",
+]
+ignore = ["E501", "RUF005", "RUF013"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+split-on-trailing-comma = false

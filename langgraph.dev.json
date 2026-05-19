@@ -1,0 +1,13 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "orchestrator_agent": "./agents/orchestrator_agent/graph.py:graph",
+    "insight_agent": "./agents/insight_agent/graph.py:graph",
+    "strategy_agent": "./agents/strategy_agent/graph.py:graph",
+    "act_agent": "./agents/act_agent/graph.py:graph",
+    "measure_agent": "./agents/measure_agent/graph.py:graph",
+    "learn_agent": "./agents/learn_agent/graph.py:graph",
+    "govern_agent": "./agents/govern_agent/graph.py:graph"
+  },
+  "env": ".env"
+}

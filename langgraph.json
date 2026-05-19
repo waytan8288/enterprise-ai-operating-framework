@@ -1,0 +1,10 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "orchestrator_agent": "./agents/orchestrator_agent/graph.py:graph"
+  },
+  "env": ".env",
+  "auth": {
+    "path": "./libs/security/auth.py:auth"
+  }
+}
