@@ -69,10 +69,14 @@ mysql = [
 snowflake = [
     "snowflake-sqlalchemy>=1.6.0",
 ]
+neo4j = [
+    "neo4j>=5.0.0,<6.0.0",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+markers = ["neo4j: requires a running Neo4j server"]
 
 [tool.mypy]
 files = ["*.py"]

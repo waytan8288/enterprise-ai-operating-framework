@@ -15,10 +15,13 @@ from knowledge_graph.writer import KGWriter
 
 @pytest.fixture()
 def kg_db(tmp_path):
+    from knowledge_graph.factory import create_kg_store
+    create_kg_store.cache_clear()
     db_path = str(tmp_path / "test_kg.db")
     os.environ["KG_SQLITE_PATH"] = db_path
     yield db_path
     os.environ.pop("KG_SQLITE_PATH", None)
+    create_kg_store.cache_clear()
 
 
 class TestUpdatePatternConfidence:

@@ -7,12 +7,11 @@ with FTS5 full-text search for pattern and decision lookups.
 from __future__ import annotations
 
 import json
-import math
 import os
 import sqlite3
-from datetime import datetime, timezone
 from typing import Protocol, runtime_checkable
 
+from knowledge_graph._decay import apply_confidence_decay
 from knowledge_graph.models import (
     Action,
     Decision,
@@ -407,25 +406,6 @@ class SQLiteKnowledgeGraphStore:
                 words.append(f'"{cleaned}"')
         return " OR ".join(words) if words else '""'
 
-    _DECAY_HALF_LIFE_DAYS = 30.0
-
-    def _apply_confidence_decay(self, pattern: Pattern) -> Pattern:
-        """Apply time-based exponential decay to pattern confidence.
-
-        Uses a 30-day half-life so patterns not confirmed in ~90 days
-        drop to ~12.5% of their stored confidence.
-        """
-        now = datetime.now(timezone.utc)
-        confirmed = pattern.last_confirmed
-        if confirmed.tzinfo is None:
-            confirmed = confirmed.replace(tzinfo=timezone.utc)
-        age_days = (now - confirmed).total_seconds() / 86400.0
-        if age_days <= 0:
-            return pattern
-        decay_factor = math.exp(-0.693 * age_days / self._DECAY_HALF_LIFE_DAYS)
-        effective = pattern.confidence * decay_factor
-        return pattern.model_copy(update={"confidence": round(effective, 4)})
-
     def search_patterns(self, query: str, limit: int = 5) -> list[Pattern]:
         safe_query = self._sanitize_fts_query(query)
         try:
@@ -444,7 +424,7 @@ class SQLiteKnowledgeGraphStore:
                 "SELECT * FROM patterns LIMIT ?", (limit,)
             ).fetchall()
         patterns = [self._row_to_pattern(r) for r in rows]
-        return [self._apply_confidence_decay(p) for p in patterns]
+        return [apply_confidence_decay(p) for p in patterns]
 
     def get_outcomes_for_action(self, action_id: str) -> list[Outcome]:
         rows = self._conn.execute(

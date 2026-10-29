@@ -3,20 +3,17 @@
 from __future__ import annotations
 
 import json
-import os
 
 from langchain_core.tools import tool
 
 from connectors.factory import create_connector
 from governance.policies import DEFAULT_POLICIES
+from knowledge_graph.factory import create_kg_store
 from knowledge_graph.reader import KGReader
-from knowledge_graph.store import SQLiteKnowledgeGraphStore
 
 
 def _get_kg_reader() -> KGReader:
-    db_path = os.getenv("KG_SQLITE_PATH", "./data/knowledge_graph.db")
-    store = SQLiteKnowledgeGraphStore(db_path=db_path)
-    return KGReader(store)
+    return KGReader(create_kg_store())
 
 
 @tool

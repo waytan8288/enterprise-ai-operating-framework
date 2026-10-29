@@ -1,3 +1,4 @@
+from knowledge_graph.factory import create_kg_store
 from knowledge_graph.models import (
     Action,
     Decision,
@@ -15,4 +16,5 @@ __all__ = [
     "Outcome",
     "Pattern",
     "SQLiteKnowledgeGraphStore",
+    "create_kg_store",
 ]
