@@ -1,0 +1,19 @@
+{
+  "servers": {
+    "jira": {
+      "transport": "streamable_http",
+      "url": "https://mcp.example.com/jira/mcp",
+      "headers": {"Authorization": "Bearer ${JIRA_MCP_TOKEN}"}
+    },
+    "filesystem": {
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "./data/exports"]
+    }
+  },
+  "agents": {
+    "act_agent": {
+      "tools": ["jira.create_issue", "jira.add_comment", "filesystem.write_file"]
+    }
+  }
+}

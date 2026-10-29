@@ -18,6 +18,9 @@ MEASURE_AGENT_FLAG = "enable_measure_agent"
 LEARN_AGENT_FLAG = "enable_learn_agent"
 GOVERN_AGENT_FLAG = "enable_govern_agent"
 
+# Capability flags (not tied to a single agent)
+MCP_TOOLS_FLAG = "enable_mcp_tools"
+
 ALL_AGENT_FLAGS = [
     INSIGHT_AGENT_FLAG,
     STRATEGY_AGENT_FLAG,

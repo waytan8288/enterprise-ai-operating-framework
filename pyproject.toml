@@ -13,7 +13,7 @@ dependencies = [
     "langchain-openai>=1.1.6",
     "langchain-core>=1.2.5",
     "langgraph>=1.0.6,<1.1.0",
-    "langgraph-prebuilt>=1.0.6",
+    "langgraph-prebuilt>=1.0.6,<1.0.9",  # 1.0.9+ needs langgraph>=1.1
     "langgraph-supervisor>=0.0.31",
     "pydantic>=2.12.5",
     "python-dotenv>=1.2.1",
@@ -36,6 +36,7 @@ packages = [
     "connectors",
     "security",
     "governance",
+    "mcp_tools",
     "evals",
 ]
 
@@ -52,6 +53,7 @@ knowledge_graph = "libs/knowledge_graph"
 connectors = "libs/connectors"
 security = "libs/security"
 governance = "libs/governance"
+mcp_tools = "libs/mcp_tools"
 evals = "evals"
 
 [dependency-groups]
@@ -71,6 +73,9 @@ snowflake = [
 ]
 neo4j = [
     "neo4j>=5.0.0,<6.0.0",
+]
+mcp = [
+    "langchain-mcp-adapters>=0.1.0",
 ]
 
 [tool.pytest.ini_options]

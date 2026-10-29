@@ -11,3 +11,9 @@ dist/
 build/
 .venv/
 evals/latest_results.json
+
+# Local MCP server config (may reference private endpoints)
+mcp_servers.json
+
+# LangGraph dev server local state
+.langgraph_api/
